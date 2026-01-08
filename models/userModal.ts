@@ -15,13 +15,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide a username"],
     },
+    profileImage: {
+      type: String,
+      required: [true, "Please provide a profile image"],
+    },
     role: {
       type: String,
       enum: {
-        values: ["admin", "user"],
+        values: ["Admin", "Doctor", "Nurse", "Receptionist", "Patient"],
         message: `"{VALUE}" is not supported, please use either "admin" or "user"`,
       },
-      default: "user",
+      default: "Patient",
     },
   },
   { timestamps: true }

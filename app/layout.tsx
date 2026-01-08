@@ -1,16 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Navbar from "@/components/navbar/Navbar";
+import NextAuthSession from "@/components/session/NextAuthSession";
+import ThemeProvider from "@/components/themeProvider/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Next Care",
@@ -23,11 +15,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang='en' suppressHydrationWarning>
+      <body className='mx-auto w-11/12 md:w-10/12 antialiased'>
+        <NextAuthSession>
+          <ThemeProvider>
+            <header className='shadow glassy'>
+              <nav>
+                <Navbar />
+              </nav>
+            </header>
+            <main className='min-h-[75dvh]'>{children}</main>
+            <footer className='shadow glassy'>Footer</footer>
+          </ThemeProvider>
+        </NextAuthSession>
       </body>
     </html>
   );

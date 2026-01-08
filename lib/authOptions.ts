@@ -1,7 +1,8 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import { verifyUserCredentials } from "./auth";
+import { NextAuthOptions } from "next-auth";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -11,28 +12,34 @@ export const authOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
+        if (!credentials) return null;
+
         // Add logic here to look up the user from the credentials supplied
-        const user = await verifyUserCredentials(
-          credentials?.username || "",
-          credentials?.password || ""
+        return await verifyUserCredentials(
+          credentials.email,
+          credentials.password
         );
-
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-        }
       },
     }),
   ],
   session: { strategy: "jwt" },
-  secret: process.env.NEXT_AUTH_SECRET,
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      return true;
+    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
+    async session({ session, user, token }) {
+      return session;
+    },
+    async jwt({ token, user, account, profile }) {
+      return token;
+    },
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };

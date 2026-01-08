@@ -8,20 +8,19 @@ export async function verifyUserCredentials(email: string, password: string) {
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
-    throw new Error("Invalid credentials");
     return null;
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    throw new Error("Invalid credentials");
     return null;
   }
 
   return {
     id: user._id.toString(),
+    name: user.username,
     email: user.email,
-    name: user.name,
+    image: user.profileImage,
   };
 }
