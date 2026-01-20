@@ -1,7 +1,7 @@
 "use client";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import SigninWithButton from "@/components/buttons/SigninWithButton";
+import SigninWithButton from "@/components/button/SigninWithButton";
 import ImagePicker from "@/components/imagePicker/ImagePicker";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,8 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useState } from "react";
+import ButtonWithSpinner from "@/components/button/button-with-spinner";
 
 function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -34,6 +36,7 @@ function fileToBase64(file: File): Promise<string> {
 }
 
 export default function SignupPage() {
+  const [isLoginLoading, setIsLoginLoading] = useState<boolean>(false);
   const router = useRouter();
   type formData = {
     name: string;
@@ -53,6 +56,7 @@ export default function SignupPage() {
   async function handleSignup(formData: formData): Promise<void> {
     console.log("Signup form data:", formData);
     try {
+      setIsLoginLoading(true);
       const base64Image = await fileToBase64(formData.image as File);
       const imageUrl = await axios.post("/api/imgbb", {
         name: formData.name,
@@ -76,6 +80,8 @@ export default function SignupPage() {
       if (error instanceof Error) {
         toast.error("signup failed!");
       }
+    } finally {
+      setIsLoginLoading(false);
     }
   }
   return (
@@ -149,7 +155,7 @@ export default function SignupPage() {
                     fileOrEvent:
                       | File
                       | React.ChangeEvent<HTMLInputElement>
-                      | null
+                      | null,
                   ) => {
                     let file: File | null = null;
 
@@ -170,9 +176,9 @@ export default function SignupPage() {
             </div>
           </CardContent>
           <CardFooter className='flex-col gap-2'>
-            <Button type='submit' className='w-full hover:cursor-pointer'>
+            <ButtonWithSpinner type='submit' isLoading={isLoginLoading}>
               Signup
-            </Button>
+            </ButtonWithSpinner>
             <SigninWithButton />
           </CardFooter>
         </Card>

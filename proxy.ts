@@ -1,6 +1,7 @@
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import dbConnect from "./lib/dbConnect";
 
 // This function can be marked `async` if using `await` inside
 export default async function proxy(request: NextRequest) {
@@ -15,7 +16,7 @@ export default async function proxy(request: NextRequest) {
 
   if (!isAuthenticated && !isPublic) {
     return NextResponse.redirect(
-      new URL(`/login?callbackUrl=${path}`, request.url)
+      new URL(`/login?callbackUrl=${path}`, request.url),
     );
   }
   if (isAuthenticated && isPublic) {

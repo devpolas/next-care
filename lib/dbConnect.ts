@@ -22,7 +22,7 @@ async function dbConnect(): Promise<typeof mongoose> {
 
     if (!dbUri) {
       throw new Error(
-        "Please define the MONGODB_URI environment variable inside .env"
+        "Please define the MONGODB_URI environment variable inside .env",
       );
     }
 
@@ -32,7 +32,12 @@ async function dbConnect(): Promise<typeof mongoose> {
     });
   }
 
-  cached.connection = await cached.promise;
+  try {
+    cached.connection = await cached.promise;
+  } catch (error) {
+    cached.promise = null;
+    throw error;
+  }
   return cached.connection;
 }
 

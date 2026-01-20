@@ -1,4 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { verifyUserCredentials } from "./auth";
 import { NextAuthOptions } from "next-auth";
 
@@ -21,9 +22,13 @@ export const authOptions: NextAuthOptions = {
         // Add logic here to look up the user from the credentials supplied
         return await verifyUserCredentials(
           credentials.email,
-          credentials.password
+          credentials.password,
         );
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
   ],
   session: { strategy: "jwt" },

@@ -1,5 +1,6 @@
 "use client";
-import SigninWithButton from "@/components/buttons/SigninWithButton";
+import ButtonWithSpinner from "@/components/button/button-with-spinner";
+import SigninWithButton from "@/components/button/SigninWithButton";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,26 +16,38 @@ import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 type loginData = {
   email: string;
   password: string;
 };
 export default function LoginPage() {
+  const [isLoginLoading, setIsLoginLoading] = useState<boolean>(false);
   const { register, handleSubmit } = useForm<loginData>();
   const router = useRouter();
 
   async function handleLogin(formData: loginData): Promise<void> {
-    const response = await signIn("credentials", {
-      redirect: false,
-      email: formData.email,
-      password: formData.password,
-    });
-    if (!response?.ok) {
-      console.log("login failed");
+    try {
+      setIsLoginLoading(true);
+      const response = await signIn("credentials", {
+        redirect: false,
+        email: formData.email,
+        password: formData.password,
+      });
+      if (!response?.ok) {
+        console.log("login failed");
+      }
+      router.push("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error("signup failed!");
+      }
+    } finally {
+      setIsLoginLoading(false);
     }
-    router.push("/");
   }
 
   return (
@@ -88,9 +101,9 @@ export default function LoginPage() {
             </div>
           </CardContent>
           <CardFooter className='flex-col gap-2'>
-            <Button type='submit' className='w-full hover:cursor-pointer'>
+            <ButtonWithSpinner type='submit' isLoading={isLoginLoading}>
               Login
-            </Button>
+            </ButtonWithSpinner>
             <SigninWithButton />
           </CardFooter>
         </Card>
