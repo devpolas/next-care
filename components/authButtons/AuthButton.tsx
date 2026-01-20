@@ -4,6 +4,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import DropdownUser from "../dropdown-user/dropdown-user";
 export default function AuthButton() {
   const { status } = useSession();
   const isPending = status === "loading";
@@ -22,12 +23,15 @@ export default function AuthButton() {
       ) : (
         <div>
           {isAuthenticated ? (
-            <Button
-              className='bg-red-400 hover:bg-red-500 hover:underline hover:cursor-pointer'
-              onClick={handleSignout}
-            >
-              Logout
-            </Button>
+            <div className='flex flex-row gap-4'>
+              <DropdownUser />
+              <Button
+                className='bg-red-400 hover:bg-red-500 hover:underline hover:cursor-pointer'
+                onClick={handleSignout}
+              >
+                Logout
+              </Button>
+            </div>
           ) : (
             <div className='flex flex-row gap-2'>
               <Link href='/login'>

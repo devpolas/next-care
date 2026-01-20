@@ -30,7 +30,7 @@ export default function Navbar() {
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className='hover:cursor-pointer'>
+            <NavigationMenuTrigger className='bg-transparent hover:cursor-pointer'>
               Services
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -42,7 +42,7 @@ export default function Navbar() {
                       href='/cares'
                     >
                       <div className='sm:mt-4 mb-2 font-medium text-lg'>
-                        All Care
+                        All Cares
                       </div>
                       <p className='text-muted-foreground text-sm leading-tight'>
                         Self-care is taking time to look after your physical,
@@ -52,18 +52,41 @@ export default function Navbar() {
                     </Link>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href='/cares/child-care' title='Child Care'>
-                  Child care is the supervision and care of children to support
+                <ListItem href='/cares?services=baby-care' title='Baby Cares'>
+                  Baby care is the supervision and care of children to support
                   their safety, development, and well-being while parents or
                   guardians are away or working.
                 </ListItem>
-                <ListItem href='/cares/old-care' title='Old Care'>
-                  Elder care is the support and assistance given to older adults
-                  to help them stay safe, healthy, and comfortable in their
-                  daily lives.
+                <ListItem href='/cares?services=old-care' title='Elderly Cares'>
+                  Elderly Service is the support and assistance given to older
+                  adults to help them stay safe, healthy, and comfortable in
+                  their daily lives.
+                </ListItem>
+                <ListItem
+                  href='/cares?services=emergency-care'
+                  title='Emergency Cares'
+                >
+                  Sick People Service is the support and assistance given to
+                  older adults to help them stay safe, healthy, and comfortable
+                  in their daily lives.
                 </ListItem>
               </ul>
             </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <Link href='/contact'>Contact</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <Link href='/about'>About</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <Link href='/career'>Career</Link>
+            </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

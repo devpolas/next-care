@@ -2,6 +2,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { verifyUserCredentials } from "./auth";
 import { NextAuthOptions } from "next-auth";
+import User from "@/models/userModal";
+import { UserType } from "@/types/user.type";
+import dbConnect from "./dbConnect";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -29,11 +32,37 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
     }),
   ],
   session: { strategy: "jwt" },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
+      if (account?.provider !== "google") return true;
+      if (user) {
+        await dbConnect();
+        const isUserExits: UserType | null = await User.findOne({
+          email: user.email,
+        });
+        if (isUserExits?.provider === "credentials") {
+          throw new Error("User already exists with credentials provider");
+        }
+        if (!isUserExits) {
+          await User.create({
+            provider: "google",
+            username: user.name,
+            email: user.email,
+            profileImage: user.image || "",
+            password: "N/A",
+          });
+        }
+      }
       return true;
     },
     async redirect({ url, baseUrl }) {

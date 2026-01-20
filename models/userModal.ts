@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    provider: {
+      type: String,
+      enum: ["google", "credentials"],
+      default: "credentials",
+    },
     username: {
       type: String,
       required: [true, "Please provide a username"],
@@ -13,11 +18,15 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please provide a username"],
+      required: function () {
+        return this.provider === "credentials";
+      },
     },
     profileImage: {
       type: String,
-      required: [true, "Please provide a profile image"],
+      required: function () {
+        return this.provider === "credentials";
+      },
     },
     role: {
       type: String,
@@ -28,7 +37,7 @@ const userSchema = new mongoose.Schema(
       default: "Patient",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);

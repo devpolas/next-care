@@ -29,7 +29,7 @@ export default function SigninWithButton() {
     >
       <span className='flex flex-row gap-4'>
         <FcGoogle />
-        Login with Google
+        Continue with Google
       </span>
     </Button>
   );
