@@ -38,7 +38,7 @@ export default function Navbar() {
               Services
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className='gap-2 grid lg:grid-cols-[.75fr_1fr] md:w-[400px] lg:w-[500px]'>
+              <ul className='gap-2 grid lg:grid-cols-[.75fr_1fr] md:w-100 lg:w-125'>
                 <li className='row-span-3'>
                   <NavigationMenuLink asChild>
                     <Link

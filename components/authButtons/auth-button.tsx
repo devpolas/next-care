@@ -26,6 +26,7 @@ export default function AuthButton() {
             <div className='flex flex-row gap-4'>
               <DropdownUser />
               <Button
+                size='sm'
                 className='bg-red-400 hover:bg-red-500 hover:underline hover:cursor-pointer'
                 onClick={handleSignout}
               >
@@ -36,6 +37,7 @@ export default function AuthButton() {
             <div className='flex flex-row gap-2'>
               <Link href='/login'>
                 <Button
+                  size='sm'
                   className='bg-green-600 hover:bg-blue-600 hover:underline hover:cursor-pointer'
                   variant='default'
                 >
@@ -45,6 +47,7 @@ export default function AuthButton() {
 
               <Link href='/signup'>
                 <Button
+                  size='sm'
                   variant='default'
                   className='hidden sm:block bg-blue-600 hover:bg-green-600 hover:underline hover:cursor-pointer'
                 >

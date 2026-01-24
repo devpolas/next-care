@@ -24,7 +24,7 @@ export default function RootLayout({
                 <Navbar />
               </nav>
             </header>
-            <main className='min-h-[75dvh]'>{children}</main>
+            <main className='w-full min-h-[75dvh]'>{children}</main>
             <footer className='shadow glassy'>Footer</footer>
           </ThemeProvider>
         </NextAuthSession>
