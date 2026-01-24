@@ -1,8 +1,8 @@
 "use client";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import SigninWithButton from "@/components/button/SigninWithButton";
-import ImagePicker from "@/components/imagePicker/ImagePicker";
+import SigninWithButton from "@/components/button/signin-with-button";
+import ImagePicker from "@/components/imagePicker/imagePicker";
 import { Button } from "@/components/ui/button";
 import {
   Card,

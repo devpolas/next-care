@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/navbar/Navbar";
-import NextAuthSession from "@/components/session/NextAuthSession";
-import ThemeProvider from "@/components/themeProvider/ThemeProvider";
+import Navbar from "@/components/navbar/navbar";
+import NextAuthSession from "@/components/session/next-auth-session";
+import ThemeProvider from "@/components/themeProvider/theme-provider";
 
 export const metadata: Metadata = {
   title: "Next Care",

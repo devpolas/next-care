@@ -1,6 +1,6 @@
 "use client";
 import ButtonWithSpinner from "@/components/button/button-with-spinner";
-import SigninWithButton from "@/components/button/SigninWithButton";
+import SigninWithButton from "@/components/button/signin-with-button";
 import { Button } from "@/components/ui/button";
 import {
   Card,

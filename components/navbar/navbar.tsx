@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import Logo from "../logo/Logo";
-import AuthButton from "@/components/authButtons/AuthButton";
+import Logo from "../logo/logo";
+import AuthButton from "@/components/authButtons/auth-button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,6 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "../ui/navigation-menu";
 import { useSession } from "next-auth/react";
+import MobileNav from "./mobileNav";
 
 export default function Navbar() {
   const { data, status } = useSession();
@@ -21,8 +22,11 @@ export default function Navbar() {
 
   return (
     <div className='flex flex-row justify-between items-center shadow p-2'>
-      <Logo />
-      <NavigationMenu className='hidden sm:block'>
+      <div className='flex items-center gap-1'>
+        <MobileNav />
+        <Logo />
+      </div>
+      <NavigationMenu className='hidden lg:block'>
         <NavigationMenuList className='flex-wrap'>
           <NavigationMenuItem>
             <NavigationMenuLink asChild>

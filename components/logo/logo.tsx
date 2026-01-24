@@ -9,7 +9,7 @@ export default function Logo() {
       href={"/"}
       className='flex flex-row items-center gap-1 hover:cursor-pointer'
     >
-      <Image src={logo} alt='Next Care Logo' width={40} height={40} />
+      <Image src={logo} alt='Next Care Logo' width={35} height={35} />
       <h2 className='hidden sm:block font-extrabold text-green-700 text-xl'>
         Next Care
       </h2>

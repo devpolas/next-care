@@ -2,7 +2,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { verifyUserCredentials } from "./auth";
 import { NextAuthOptions } from "next-auth";
-import User from "@/models/userModal";
+import User from "@/models/user-modal";
 import { UserInterface } from "@/types/user.type";
 import dbConnect from "./dbConnect";
 
