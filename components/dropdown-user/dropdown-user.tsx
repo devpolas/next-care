@@ -26,7 +26,7 @@ export default function DropdownUser() {
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Image
-          src={data?.user?.image ?? "/avatar-placeholder.png"}
+          src={data?.user?.image ?? "/user-avatar.png"}
           alt='profile image'
           width={36}
           height={24}

@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 export default function SigninWithButton() {
   const handleGoogleLogin = async () => {
     try {
-      const res = await signIn("google", { redirect: false });
+      const res = await signIn("google");
 
       if (res?.error) {
         console.error("Google login failed");

@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { verifyUserCredentials } from "./auth";
 import { NextAuthOptions } from "next-auth";
 import User from "@/models/userModal";
-import { UserType } from "@/types/user.type";
+import { UserInterface } from "@/types/user.type";
 import dbConnect from "./dbConnect";
 
 export const authOptions: NextAuthOptions = {
@@ -43,35 +43,45 @@ export const authOptions: NextAuthOptions = {
   ],
   session: { strategy: "jwt" },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      if (account?.provider !== "google") return true;
+    async signIn({ user, account }) {
+      if (account?.provider !== "google") return true; // allow credentials login
       if (user) {
         await dbConnect();
-        const isUserExits: UserType | null = await User.findOne({
-          email: user.email,
-        });
-        if (isUserExits?.provider === "credentials") {
+        const existingUser = await User.findOne({ email: user.email });
+
+        if (existingUser?.provider === "credentials") {
           throw new Error("User already exists with credentials provider");
         }
-        if (!isUserExits) {
+
+        if (!existingUser) {
           await User.create({
             provider: "google",
             username: user.name,
             email: user.email,
             profileImage: user.image || "",
-            password: "N/A",
+            role: "Patient", // default role
           });
         }
       }
-      return true;
+      return true; // ✅ must return boolean
     },
-    async redirect({ url, baseUrl }) {
-      return baseUrl;
-    },
-    async session({ session, user, token }) {
+
+    // async redirect({ url, baseUrl }) {
+    //   return baseUrl;
+    // },
+    async session({ session, token }) {
+      session.user.role = token.role as UserInterface["role"];
+      session.accessToken = token.accessToken;
       return session;
     },
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, user, account }) {
+      // First login
+      if (user) {
+        const dbUser = await User.findOne({ email: user.email });
+        token.role = dbUser ? dbUser.role : user.role;
+        if (account?.access_token) token.accessToken = account.access_token;
+      }
+      // Subsequent calls: token already has id and role
       return token;
     },
   },

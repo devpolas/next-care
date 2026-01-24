@@ -21,6 +21,8 @@ export async function verifyUserCredentials(email: string, password: string) {
     id: user._id.toString(),
     name: user.username,
     email: user.email,
+    role: user.role,
+    provider: user.provider,
     image: user.profileImage,
   };
 }
