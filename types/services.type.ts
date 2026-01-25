@@ -1,18 +1,14 @@
 export type CareCategory = "Baby Care" | "Elderly Care" | "Emergency Care";
 
-export interface Service {
-  id: string;
+export interface CareInterface {
+  _id: string;
   name: string;
   shortDescription: string;
   description: string;
   image: string;
   features: string[];
+  category: CareCategory;
   pricePerHour?: number | null;
   pricePerDay?: number | null;
   pricePerTrip?: number | null;
-}
-
-export interface CategoryServices {
-  category: CareCategory;
-  services: Service[];
 }

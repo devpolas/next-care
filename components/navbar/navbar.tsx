@@ -10,16 +10,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../ui/navigation-menu";
-import { useSession } from "next-auth/react";
 import MobileNav from "./mobileNav";
 
 export default function Navbar() {
-  const { data, status } = useSession();
-
-  if (status === "authenticated") {
-    console.log(data.user);
-  }
-
   return (
     <div className='flex flex-row justify-between items-center shadow p-2'>
       <div className='flex items-center gap-1'>

@@ -20,7 +20,7 @@ export default function RootLayout({
         <div className='mx-auto w-11/12 md:w-10/12'>
           <NextAuthSession>
             <ThemeProvider>
-              <header className='shadow glassy'>
+              <header className='top-0 z-50 sticky bg-background shadow glassy'>
                 <nav>
                   <Navbar />
                 </nav>
