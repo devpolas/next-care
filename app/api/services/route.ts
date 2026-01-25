@@ -49,11 +49,12 @@ export async function GET(request: NextRequest) {
     console.log(cares);
 
     const total = await Service.countDocuments(query);
+    const totalPae = Math.ceil(total / limit);
 
     return NextResponse.json(
       {
         success: true,
-        total,
+        totalPae,
         page,
         limit,
         cares,
