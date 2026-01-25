@@ -31,7 +31,7 @@ export default function MobileNav() {
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Services</DropdownMenuSubTrigger>
 
-          <DropdownMenuSubContent className='space-y-2 ml-2 p-2'>
+          <DropdownMenuSubContent className='space-y-2 ml-1 p-2'>
             <DropdownMenuItem asChild>
               <Link href='/cares'>All Cares</Link>
             </DropdownMenuItem>
