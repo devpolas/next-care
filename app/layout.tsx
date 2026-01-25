@@ -16,18 +16,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className='mx-auto w-11/12 md:w-10/12 antialiased'>
-        <NextAuthSession>
-          <ThemeProvider>
-            <header className='shadow glassy'>
-              <nav>
-                <Navbar />
-              </nav>
-            </header>
-            <main className='w-full min-h-[75dvh]'>{children}</main>
-            <footer className='shadow glassy'>Footer</footer>
-          </ThemeProvider>
-        </NextAuthSession>
+      <body className='antialiased'>
+        <div className='mx-auto w-11/12 md:w-10/12'>
+          <NextAuthSession>
+            <ThemeProvider>
+              <header className='shadow glassy'>
+                <nav>
+                  <Navbar />
+                </nav>
+              </header>
+              <main className='w-full min-h-[75dvh]'>{children}</main>
+              <footer className='shadow glassy'>Footer</footer>
+            </ThemeProvider>
+          </NextAuthSession>
+        </div>
       </body>
     </html>
   );

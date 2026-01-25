@@ -23,7 +23,6 @@ export default function CareerPage() {
           you are a Doctor, Nurse, or Caregiver, submit your application here.
         </p>
       </div>
-
       <div className='mx-auto max-w-3xl'>
         <Card>
           <CardContent className='space-y-6 p-8'>
