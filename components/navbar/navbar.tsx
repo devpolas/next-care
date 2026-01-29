@@ -54,7 +54,10 @@ export default function Navbar() {
                   their safety, development, and well-being while parents or
                   guardians are away or working.
                 </ListItem>
-                <ListItem href='/cares?services=old-care' title='Elderly Cares'>
+                <ListItem
+                  href='/cares?services=elderly-care'
+                  title='Elderly Cares'
+                >
                   Elderly Service is the support and assistance given to older
                   adults to help them stay safe, healthy, and comfortable in
                   their daily lives.
