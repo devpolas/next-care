@@ -41,7 +41,7 @@ export default function MobileNav() {
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
-              <Link href='/cares?services=old-care'>Elderly Cares</Link>
+              <Link href='/cares?services=elderly-care'>Elderly Cares</Link>
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
